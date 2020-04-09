@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ trait PackageDetail
     protected function getComposer()
     {
         $dev_path = app()->environment() == 'development' ? '/package/TestApp' : '';
-        $path     = getcwd() . $dev_path . '/composer.json';
+        $path = getcwd().$dev_path.'/composer.json';
 
         return json_decode(file_get_contents($path));
     }
@@ -21,13 +22,13 @@ trait PackageDetail
     /**
      * Get namespace from composer.
      *
-     * @return int|string|null
      * @throws Exception
+     * @return int|string|null
      */
     public function namespaceFromComposer()
     {
         $content = $this->getComposer();
-        $psr     = 'psr-4';
+        $psr = 'psr-4';
 
         return key($content->autoload->$psr);
     }
@@ -35,8 +36,8 @@ trait PackageDetail
     /**
      * Get vendor name from composer.
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     protected function getVendor()
     {
@@ -46,8 +47,8 @@ trait PackageDetail
     /**
      * Get package name.
      *
-     * @return string|string[]
      * @throws Exception
+     * @return string|string[]
      */
     public function getPackageName()
     {
@@ -57,8 +58,8 @@ trait PackageDetail
     /**
      * Namespace to be used by make commands.
      *
-     * @return int|string|null
      * @throws Exception
+     * @return int|string|null
      */
     protected function rootNamespace()
     {
@@ -67,15 +68,27 @@ trait PackageDetail
 
     public function devPath()
     {
-        return (app()->environment() === 'development') ? '/package/' . $this->getPackageName() . '/' : '/';
+        return (app()->environment() === 'development') ? '/package/'.$this->getPackageName().'/' : '/';
     }
 
     public function getPath($name)
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-        $path = getcwd() . $this->devPath();
-        $path = $this->getComposer()->type !== 'project' ? $path . 'src/' : $path;
+        $path = getcwd().$this->devPath();
+        $path = $this->getComposer()->type !== 'project' ? $path.'src/' : $path;
 
-        return $path . str_replace('\\', '/', $name) . '.php';
+        return $path.str_replace('\\', '/', $name).'.php';
+    }
+
+    /**
+     * Navigates to illuminate.
+     * mainly to pick stubs from it.
+     *
+     * @return false|string
+     */
+    public function illuminateDirectory()
+    {
+        return realpath(__DIR__
+            .'/../../vendor/laravel-zero/foundation/src/Illuminate/');
     }
 }
