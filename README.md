@@ -8,7 +8,9 @@
 
 This was achieved by placing most of the `make commands` you use in a plain Laravel app.
 
-Every PHP class you are going to create using this tool is gonna be namespaced with the namespace used in your composer file.
+##### Every PHP class you are going to create using this tool is gonna be `namespaced` with the `namespace` used in your `composer file`.
+
+Personally i just built this because i was in the habit of creating classes in a Laravel project and move them to my package all the time and it was inefficient.
 
 ## Installation
 You must installer Larapack as a global requirement so that you can use it from anywhere.
