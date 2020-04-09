@@ -17,4 +17,9 @@ class FactoryMakeCommand extends LaravelFactoryMake
         return realpath(null) .$this->devPath() ."database/factories/{$name}.php";
         return $this->laravel->databasePath()."/factories/{$name}.php";
     }
+    public function handle()
+    {
+        parent::handle();
+        $this->info('Remember to add the factories directory to composer autoload');
+    }
 }
