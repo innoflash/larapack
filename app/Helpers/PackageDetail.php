@@ -49,7 +49,7 @@ trait PackageDetail
      * @return string|string[]
      * @throws Exception
      */
-    protected function getPackageName()
+    public function getPackageName()
     {
         return str_replace('\\', '', Str::after($this->namespaceFromComposer(), '\\'));
     }
