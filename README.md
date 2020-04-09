@@ -21,7 +21,7 @@ Note: For windows user, first run `composer global update`
 `composer global require innoflash/larapack`
 
 ## Available commands
-- All Laravel make commands
+- All Laravel `make` commands
 
 ## Contributions
 Feel free to fork, open issues and give suggestions. 
