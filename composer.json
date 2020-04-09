@@ -6,13 +6,13 @@
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
-        "source": "https://github.com/laravel-zero/laravel-zero"
+        "issues": "https://github.com/innoflash/larapack/issues",
+        "source": "https://github.com/innoflash/larapack"
     },
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Innocent Mazando",
+            "email": "innocentmazando@gmail.com"
         }
     ],
     "require": {
