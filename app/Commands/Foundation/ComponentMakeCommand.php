@@ -6,9 +6,6 @@ use App\Helpers\PackageDetail;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Foundation\Console\ComponentMakeCommand as LaravelComponentMake;
 use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ComponentMakeCommand extends LaravelComponentMake
 {
@@ -16,8 +13,8 @@ class ComponentMakeCommand extends LaravelComponentMake
 
     public function handle()
     {
-       parent::handle();
-       $this->info('Do not forget to register your components in the the package provider.');
+        parent::handle();
+        $this->info('Do not forget to register your components in the the package provider.');
     }
 
     /**
@@ -28,12 +25,9 @@ class ComponentMakeCommand extends LaravelComponentMake
     protected function writeView()
     {
         $view = $this->getView();
-        $path = realpath(null). $this->devPath() . 'views/'.str_replace('.', '/', 'components.'.$view);
+        $path = realpath(null).$this->devPath().'views/'.str_replace('.', '/', 'components.'.$view);
 
-        //die(realpath('/'.$this->devPath()));
-        //$path = resource_path('views').'/'.str_replace('.', '/', 'components.'.$view);
-
-        if (! $this->files->isDirectory(dirname($path))) {
+        if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
 
@@ -49,6 +43,7 @@ class ComponentMakeCommand extends LaravelComponentMake
      * Build the class with the given name.
      *
      * @param  string  $name
+     *
      * @return string
      */
     protected function buildClass($name)
@@ -66,18 +61,5 @@ class ComponentMakeCommand extends LaravelComponentMake
             'view(\'components.'.$this->getView().'\')',
             GeneratorCommand::buildClass($name)
         );
-    }
-    /**
-     * Get the view name relative to the components directory.
-     *
-     * @return string view
-     */
-    protected function getView()
-    {
-        return collect(explode('/', $this->argument('name')))
-            ->map(function ($part) {
-                return Str::kebab($part);
-            })
-            ->implode('.');
     }
 }
