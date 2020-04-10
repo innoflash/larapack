@@ -19,7 +19,8 @@
         "php": "^7.2.5",
         "illuminate/database": "^7.0",
         "illuminate/routing": "^7.5",
-        "laminas/laminas-text": "^2.7"
+        "laminas/laminas-text": "^2.7",
+        "laravel-zero/framework": "^7.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
