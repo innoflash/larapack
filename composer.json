@@ -1,7 +1,7 @@
 {
     "name": "innoflash/larapack",
     "description": "The Laravel Zero Framework.",
-    "keywords": ["framework", "laravel", "laravel zero", "console", "cli"],
+    "keywords": ["laravel package builder", "console", "cli"],
     "homepage": "https://laravel-zero.com",
     "type": "project",
     "license": "MIT",
@@ -19,8 +19,7 @@
         "php": "^7.2.5",
         "illuminate/database": "^7.0",
         "illuminate/routing": "^7.5",
-        "laminas/laminas-text": "^2.7",
-        "laravel-zero/framework": "^7.0"
+        "laminas/laminas-text": "^2.7"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
@@ -49,5 +48,6 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": ["larapack"]
+    "bin": ["builds/larapack"],
+    "exclude-dev-files": false
 }
