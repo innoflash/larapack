@@ -14,17 +14,11 @@ class PolicyMakeCommand extends LaravelPolicyMake
    {
        $model = str_replace('/', '\\', $model);
 
-       $namespaceModel = $this->namespaceFromComposer().$model;
-
        if (Str::startsWith($model, '\\')) {
-           $stub = str_replace('NamespacedDummyModel', trim($model, '\\'), $stub);
+           $namespacedModel = trim($model, '\\');
        } else {
-           $stub = str_replace('NamespacedDummyModel', $namespaceModel, $stub);
+           $namespacedModel = $this->namespaceFromComposer().$model;
        }
-
-       $stub = str_replace(
-           "use {$namespaceModel};\nuse {$namespaceModel};", "use {$namespaceModel};", $stub
-       );
 
        $model = class_basename(trim($model, '\\'));
 
@@ -32,15 +26,28 @@ class PolicyMakeCommand extends LaravelPolicyMake
 
        $dummyModel = Str::camel($model) === 'user' ? 'model' : $model;
 
-       $stub = str_replace('DocDummyModel', Str::snake($dummyModel, ' '), $stub);
+       $replace = [
+           'NamespacedDummyModel' => $namespacedModel,
+           '{{ namespacedModel }}' => $namespacedModel,
+           '{{namespacedModel}}' => $namespacedModel,
+           'DummyModel' => $model,
+           '{{ model }}' => $model,
+           '{{model}}' => $model,
+           'dummyModel' => Str::camel($dummyModel),
+           '{{ modelVariable }}' => Str::camel($dummyModel),
+           '{{modelVariable}}' => Str::camel($dummyModel),
+           'DummyUser' => $dummyUser,
+           '{{ user }}' => $dummyUser,
+           '{{user}}' => $dummyUser,
+       ];
 
-       $stub = str_replace('DummyModel', $model, $stub);
+       $stub = str_replace(
+           array_keys($replace), array_values($replace), $stub
+       );
 
-       $stub = str_replace('dummyModel', Str::camel($dummyModel), $stub);
-
-       $stub = str_replace('DummyUser', $dummyUser ?? 'User', $stub);
-
-       return str_replace('DocDummyPluralModel', Str::snake(Str::pluralStudly($dummyModel), ' '), $stub);
+       return str_replace(
+           "use {$namespacedModel};\nuse {$namespacedModel};", "use {$namespacedModel};", $stub
+       );
    }
 
    public function handle()
